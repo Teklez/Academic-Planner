@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Create account</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="css/newCourseInputField.css">
+        <script src="https://kit.fontawesome.com/fe3d3f96be.js"></script>
+    </head>
+    <body class="bg-[#272B34] text-white p-5">
+        <div class="mx-auto text-center" id="app-logo">
+            <figure>
+                <i class="fa-solid fa-school block text-3xl" style="color: #1efe80"></i>
+                <figcaption class="font-mono text-xl">Academic Planner</figcaption>
+            </figure>
+        </div>
+        <hr class="border-[#1EFE80] mx-16 my-5" />
+        <hgroup class="text-center">
+            <h1 class="text-4xl text-[#1EFE80] font-bold">Create your account</h1>
+            <p class="text-xl">Organize your classes, assignments and exams for free</p>
+        </hgroup>
+        <div class="mx-16">
+            <h2 class="text-[#1EFE80] text-2xl">General Details</h2>
+            <hr class="border-[#1EFE80] mb-5" />
+        </div>
+        <section id="general-details" class="grid grid-cols-2">
+            <div class="flex items-center justify-center my-5">
+                <div class="relative">
+                    <input
+                        id="fullName"
+                        name="fullName"
+                        type="text"
+                        autofocus
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="fullName"
+                        class="absolute left-0 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Full Name</label
+                    >
+                </div>
+            </div>
+            <div class="flex items-center justify-center my-5">
+                <div class="relative">
+                    <input
+                        id="schoolName"
+                        name="schoolName"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="schoolName"
+                        class="absolute left-0 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >School Name</label
+                    >
+                </div>
+            </div>
+            <div class="flex items-center justify-center my-5">
+                <div class="relative">
+                    <input
+                        id="major"
+                        name="major"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="major"
+                        class="absolute left-0 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Major / Field of Study</label
+                    >
+                </div>
+            </div>
+            <div class="flex items-center justify-center my-5">
+                <div class="relative">
+                    <input
+                        id="academicYearAndSemester"
+                        name="academicYearAndSemester"
+                        type="text"
+                        class="border-b w-96 border-gray-300 py-1 focus:border-b-2 focus:border-[#1EFE80] transition-colors focus:outline-none peer bg-inherit"
+                    />
+                    <label
+                        for="academicYearAndSemester"
+                        class="absolute left-0 top-1 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-[#1EFE80]"
+                        >Academic Year & Semester</label
+                    >
+                </div>
+            </div>
+        </section>
+        <div class="mx-16">
+            <h2 class="text-[#1EFE80] text-2xl">List of Courses</h2>
+            <hr class="border-[#1EFE80] mb-5" />
+        </div>
+        <form class="mx-16">
+            <div class="mb-5" id="course-1">
+                <h3 class="text-[#1EFE80] text-2xl">Course #1</h3>
+                <input required type="text" class="input-bar w-96 h-8 m-2" name="courseName" placeholder="Course name">
+                <input required type="number" pattern="[0-9]*" maxlength="1" class="input-bar w-24 h-8 m-2" name="ects" placeholder="ECTS">
+                <input required type="text" class="input-bar w-72 h-8 m-2" name="instructor" placeholder="Instructor name">
+                <input required type="text" class="input-bar w-48 h-8 m-2" name="courseCode" placeholder="Course code">
+            </div>
+            <div class="mb-5" id="course-2">
+                <h3 class="text-[#1EFE80] text-2xl">Course #2</h3>
+                <input required type="text" class="input-bar w-96 h-8 m-2" name="courseName" placeholder="Course name">
+                <input required type="number" class="input-bar w-24 h-8 m-2" name="ects" placeholder="ECTS">
+                <input required type="text" class="input-bar w-72 h-8 m-2" name="instructor" placeholder="Instructor name">
+                <input required type="text" class="input-bar w-48 h-8 m-2" name="courseCode" placeholder="Course code">
+            </div>
+            <div class="mb-5" id="course-3">
+                <h3 class="text-[#1EFE80] text-2xl">Course #3</h3>
+                <input required type="text" class="input-bar w-96 h-8 m-2" name="courseName" placeholder="Course name">
+                <input required type="number" class="input-bar w-24 h-8 m-2" name="ects" placeholder="ECTS">
+                <input required type="text" class="input-bar w-72 h-8 m-2" name="instructor" placeholder="Instructor name">
+                <input required type="text" class="input-bar w-48 h-8 m-2" name="courseCode" placeholder="Course code">
+            </div>
+            <button
+                class="h-fit self-center text-black bg-green-400 px-4 py-1 text-xl font-semibold rounded-3xl hover:bg-green-600 hover:scale-110 transition-all">
+                + Add course
+            </button>
+            <button
+                type="submit"
+                class="h-fit self-center text-black bg-blue-400 px-4 py-1 text-xl font-semibold rounded-3xl block ml-auto m-3 hover:bg-blue-600 hover:scale-110 transition-all">
+                Create account
+            </button>
+    </form>
+    </body>
+</html>
