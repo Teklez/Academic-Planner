@@ -8,6 +8,8 @@ import {
   HttpStatus,
   ValidationPipe,
   UseGuards,
+  Redirect,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -23,7 +25,6 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   // login endpoint
-
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('/login')
@@ -53,9 +54,10 @@ export class AuthController {
 
   @Public()
   @UseGuards(GoogleAuthGuard)
+  @Redirect('../../../frontend/dashboard.html', 301)
   @Get('/google/callback')
-  googleAuthRedirect(@Req() req) {
-    return { msg: 'OK' };
+  googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    // return Redirect('../../../frontend/dashboard.html');
   }
 
   @Get('profile')

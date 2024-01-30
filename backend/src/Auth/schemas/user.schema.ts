@@ -14,6 +14,8 @@ export class User {
 
   @Prop()
   password: string;
+
+  courses: [{ type: mongoose.Schema.Types.ObjectId; ref: 'Course' }];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

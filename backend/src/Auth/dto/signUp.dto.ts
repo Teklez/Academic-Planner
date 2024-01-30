@@ -7,14 +7,6 @@ import {
 } from 'class-validator';
 
 export class SignUpDto {
-  //   @IsNotEmpty()
-  //   @IsString()
-  //   readonly firstname: string;
-
-  //   @IsNotEmpty()
-  //   @IsString()
-  //   readonly lastname: string;
-
   @IsNotEmpty()
   @IsString()
   readonly username: string;

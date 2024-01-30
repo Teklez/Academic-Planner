@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './schemas/user.schema';
@@ -6,6 +11,7 @@ import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from './dto/signUp.dto';
 import { LoginDto } from './dto/login.dto';
+import { error } from 'console';
 
 @Injectable()
 export class AuthService {
@@ -45,11 +51,16 @@ export class AuthService {
       .findOne({ username: username })
       .lean()
       .exec();
+    if (!user) {
+      console.log('user not found');
+      throw new HttpException('userNotFound', HttpStatus.NOT_FOUND);
+    }
 
     const isPasswordValid = await bcrypt.compare(pass, user.password);
 
-    if (!user || !isPasswordValid) {
-      throw new UnauthorizedException();
+    if (!isPasswordValid) {
+      console.log('incorrect password');
+      throw new HttpException('incorrectPassword', HttpStatus.UNAUTHORIZED);
     }
 
     const payload = { sub: user['_id'], username: user.username };
