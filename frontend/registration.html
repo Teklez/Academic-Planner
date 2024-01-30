@@ -25,8 +25,7 @@
         <hgroup class="mb-3">
           <h1 class="text-3xl">Welcome!</h1>
           <p class="text-2xl">
-            Please <span class="text-[#1EFE80]">sign in</span> with your
-            account.
+            Please <span class="text-[#1EFE80]">Sign Up</span> to continue.
           </p>
         </hgroup>
 
@@ -51,12 +50,7 @@
           </div>
         </div> -->
 
-        <form
-          action=""
-          method="post"
-          class="flex flex-col gap-2 px-16"
-          id="form"
-        >
+        <form class="flex flex-col gap-2 px-16" id="form">
           <input
             type="text"
             id="username"
@@ -66,6 +60,18 @@
             autofocus
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline text-black"
           />
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="email"
+            minlength="8"
+            maxlength="32"
+            class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
+          />
+
           <input
             type="password"
             id="password"
@@ -76,7 +82,19 @@
             maxlength="32"
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
           />
-          <button class="signin google-btn">
+
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+            placeholder="confirtmPassword"
+            minlength="8"
+            maxlength="32"
+            class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
+          />
+
+          <!-- <button class="signin google-btn">
             <svg
               class="h-6 w-auto"
               viewBox="0 0 256 262"
@@ -101,14 +119,14 @@
               ></path>
             </svg>
             Sign in with Google
-          </button>
+          </button> -->
 
-          <button
+          <input
+            value="Sign Up"
+            name="Sign Up"
             type="submit"
             class="w-1/2 mx-auto rounded-3xl py-2 px-3 my-3 text-xl bg-[#45ec8e] text-black font-semibold hover:font-bold hover:bg-[#01ff6f] transition-all login"
-          >
-            Sign In
-          </button>
+          />
         </form>
 
         <!-- <p class="absolute text-xs bottom-2 left-2">
@@ -121,16 +139,16 @@
         </p> -->
       </div>
       <h3 id="already-have" class="fixed right-[40%] bottom-2">
-        Don't have an account?
+        Already have an account?
         <span
           id="signin"
           class="underline cursor-pointer text-blue-400 hover:text-blue-300"
-          ><a href="registration.html">Sign Up</a></span
+          ><a href="loginPage.html">Sign in</a></span
         >
       </h3>
     </main>
 
-    <script src="scripts/signin.js"></script>
+    <script src="scripts/registration.js"></script>
     <script src="scripts/preventNavigation.js"></script>
   </body>
 </html>
