@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
+    <title>Task</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/fe3d3f96be.js"></script>
 
@@ -89,17 +89,7 @@
         </div>
       </aside>
       <main class="bg-[#272B34] w-5/6 min-h-screen p-10">
-        <div class="border border-[#1EFE80] rounded p-5" id="welcoming-msg">
-          <h1 class="text-6xl text-[#1EFE80]">
-            Hello <span class="profile-name">Abebe</span>!
-          </h1>
-          <p>Let's get started with your day.</p>
-          <p>
-            You have
-            <span class="text-yellow-300 text-4xl mx-2">4</span> pending tasks
-            for the day
-          </p>
-        </div>
+        <div id="taskHeading"></div>
         <button
           class="rounded-3xl py-2 px-3 my-5 border-[#1EFE80] bg-[#1EFE80] text-black font-semibold hover:text-xl hover:p-3 hover:bg-emerald-300 transition-all"
           onclick="window.location.href='addTask.html'"
@@ -112,27 +102,10 @@
             Today -
             <span class="text-[#1EFE80]" id="current-date">Friday, 12 May</span>
           </h3>
-          <div class="flex flex-wrap my-2" id="list-of-tasks">
-            <div class="task-item bg-[#21242C] rounded-2xl p-3 w-2/5 flex m-2">
-              <p class="h-full w-fit">
-                <i class="fa-solid fa-circle" style="color: #1efe80"></i>
-              </p>
-              <div class="h-full px-3">
-                <h4 class="flex justify-between">
-                  <span class="text-2xl">Finish SRS documentation</span
-                  ><a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a>
-                </h4>
-                <h5 class="text-[#1EFE80]">8:12 AM</h5>
-                <p class="text-sm">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Tempore explicabo accusamus iusto ab laudantium quod ad iure
-                  illo quam ullam.
-                </p>
-              </div>
-            </div>
-          </div>
+          <div class="flex flex-wrap my-2" id="list-of-tasks"></div>
         </section>
       </main>
     </div>
+    <script src="scripts/dom.js"></script>
   </body>
 </html>

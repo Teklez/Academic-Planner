@@ -3,5 +3,4 @@ export class TaskDto {
   description: string;
   dueDate: Date;
   priority: string;
-  status: string;
 }
