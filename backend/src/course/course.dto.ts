@@ -5,4 +5,5 @@ export class CourseDto {
   courseCode: string;
   startDate: string;
   endDate: string;
+  ECTS: number;
 }

@@ -23,6 +23,7 @@ async function loginUser(username, password) {
       const access_token = await data.access_token;
       console.log("The access token for this user is:", access_token);
       localStorage.setItem("access_token", access_token);
+      sessionStorage.setItem("user", username);
       window.location.href = "../../frontend/dashboard.html";
     } else {
       console.log("Login failed:", response.json());

@@ -1,7 +1,6 @@
 export class TaskDto {
   title: string;
   description: string;
-  dueDate: Date;
+  dueDate: string;
   priority: string;
-  status: string;
 }

@@ -76,6 +76,8 @@ document
         // Save the token in cookies for future authenticated requests
         console.log(access_token);
         document.cookie = `access_token=${access_token}; httpOnly:true;`;
+        sessionStorage.setItem("currentUser", username);
+        // dashboard.greeting(username);
         window.location.href = "../frontend/dashboard.html";
       } else {
         const errorData = await response.json();
@@ -98,3 +100,5 @@ googleBtn.addEventListener("click", () => {
   window.location.href = "http://localhost:5500/auth/google";
   //   window.location.replace("../../frontend/dashboard.html");
 });
+
+export { username };
