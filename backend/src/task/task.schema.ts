@@ -6,7 +6,7 @@ import * as mongoose from 'mongoose';
   timestamps: true,
 })
 export class Task {
-  @Prop({ required: true })
+  @Prop({})
   title: string;
   @Prop({ unique: true })
   description: string;
@@ -14,7 +14,7 @@ export class Task {
   dueDate: Date;
   @Prop()
   priority: string;
-  @Prop()
+  @Prop({ default: 'pending' })
   status: string;
 }
 

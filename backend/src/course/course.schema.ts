@@ -18,7 +18,9 @@ export class Course {
   @Prop()
   endDate: string;
   @Prop()
-  tasks: [{ type: mongoose.Schema.Types.ObjectId; ref: 'Task' }];
+  ECTS: number;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }] })
+  tasks: mongoose.mongo.ObjectId[];
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

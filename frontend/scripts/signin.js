@@ -72,11 +72,14 @@ document
 
       if (response.ok) {
         const data = await response.json();
-        const access_token = data.access_token;
+        const access_token = await data.access_token;
         // Save the token in cookies for future authenticated requests
         console.log(access_token);
-        document.cookie = `access_token=${access_token}; httpOnly:true;`;
-        window.location.href = "../frontend/dashboard.html";
+        sessionStorage.setItem("currentUser", username);
+        sessionStorage.setItem("access_token", access_token);
+        console.log("The access token for this user is:", access_token);
+        // dashboard.greeting(username);
+        window.location.replace("../frontend/dashboard.html");
       } else {
         const errorData = await response.json();
         console.log(errorData);
@@ -98,3 +101,5 @@ googleBtn.addEventListener("click", () => {
   window.location.href = "http://localhost:5500/auth/google";
   //   window.location.replace("../../frontend/dashboard.html");
 });
+
+export { username };

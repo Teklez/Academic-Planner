@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 @Schema({
   timestamps: true,
 })
-export class User {
+export class User extends mongoose.Document {
   @Prop({ required: true, unique: true })
   username: string;
 
@@ -14,8 +14,10 @@ export class User {
 
   @Prop()
   password: string;
-
-  courses: [{ type: mongoose.Schema.Types.ObjectId; ref: 'Course' }];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }] })
+  courses: mongoose.Types.ObjectId[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }] })
+  tasks: mongoose.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
