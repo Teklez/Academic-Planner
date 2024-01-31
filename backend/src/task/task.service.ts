@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { Course } from 'src/course/course.schema';
 import { User } from 'src/auth/schemas/user.schema';
 import { TaskDto } from './task.dto';
+import { Notification } from 'src/notification/notification.schema';
 
 @Injectable()
 export class TaskService {
@@ -15,6 +16,8 @@ export class TaskService {
     private courseModel: Model<Course>,
     @InjectModel(User.name)
     private userModel: Model<User>,
+    @InjectModel(Notification.name)
+    private notificationModel: Model<Task>,
   ) {}
 
   async createTask(
@@ -22,6 +25,7 @@ export class TaskService {
     courseCode: string,
     username: string,
   ): Promise<Task> {
+    console.log('courseCode: ', courseCode);
     const course = await this.courseModel.findOne({ courseCode: courseCode });
     const currentUser = await this.userModel.findOne({ username: username });
     if (!currentUser) {
@@ -40,6 +44,11 @@ export class TaskService {
     currentUser.tasks.push(task._id);
     await currentUser.save();
     await course.save();
+    this.notificationModel.create({
+      message: `New task ${task.title} has been created`,
+      time: new Date().toISOString(),
+    });
+
     return task;
   }
 

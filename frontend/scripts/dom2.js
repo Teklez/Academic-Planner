@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var courseTitleSpan = document.createElement("span");
   courseTitleSpan.className = "text-xl";
+  23;
 
   var courseCode = document.createElement("span");
   courseCode.className = "text-[#1EFE80] font-semibold";

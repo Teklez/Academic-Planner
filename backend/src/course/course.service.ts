@@ -10,6 +10,7 @@ import { Model } from 'mongoose';
 import { Course } from './course.schema';
 import { CourseDto } from './course.dto';
 import { User } from 'src/auth/schemas/user.schema';
+import { Notification } from 'src/notification/notification.schema';
 
 @Injectable()
 export class CourseService {
@@ -18,6 +19,8 @@ export class CourseService {
     private courseModel: Model<Course>,
     @InjectModel(User.name)
     private userModel: Model<User>,
+    @InjectModel(Notification.name)
+    private notificationModel: Model<Notification>,
   ) {}
 
   async getCourse(username: string): Promise<any> {
@@ -55,6 +58,10 @@ export class CourseService {
     currentUser.courses.push(course._id);
 
     await currentUser.save();
+    this.notificationModel.create({
+      message: `New course ${course.courseCode} has been created`,
+      time: new Date().toISOString(),
+    });
     return course;
   }
 }

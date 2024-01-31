@@ -18,6 +18,10 @@ export class User extends mongoose.Document {
   courses: mongoose.Types.ObjectId[];
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }] })
   tasks: mongoose.Types.ObjectId[];
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Notification' }],
+  })
+  notifications: mongoose.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -21,6 +21,9 @@ import { TaskController } from './task/task.controller';
 import { TaskService } from './task/task.service';
 import { TaskModule } from './task/task.module';
 import { AuthMiddleware } from './Auth/auth.middleware';
+import { NotificationController } from './notification/notification.controller';
+import { NotificationService } from './notification/notification.service';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -34,11 +37,13 @@ import { AuthMiddleware } from './Auth/auth.middleware';
       { name: 'User', schema: UserSchema },
       { name: 'Course', schema: CourseSchema },
       { name: 'Task', schema: TaskSchema },
+      { name: 'Notification', schema: TaskSchema },
     ]),
     UserModule,
     AuthModule,
     CourseModule,
     TaskModule,
+    NotificationModule,
   ],
   controllers: [
     AppController,
@@ -46,6 +51,7 @@ import { AuthMiddleware } from './Auth/auth.middleware';
     AuthController,
     CourseController,
     TaskController,
+    NotificationController,
   ],
   providers: [
     AppService,
@@ -54,6 +60,7 @@ import { AuthMiddleware } from './Auth/auth.middleware';
     JwtService,
     CourseService,
     TaskService,
+    NotificationService,
   ],
 })
 export class AppModule implements NestModule {
