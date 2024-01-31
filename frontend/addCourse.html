@@ -40,6 +40,7 @@
             name="coursename"
             required
             placeholder="Course Name"
+            minlength="8"
             autofocus
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline text-black"
           />
@@ -50,18 +51,18 @@
             name="instructor"
             required
             placeholder="instructor"
-            minlength="8"
+            minlength="4"
             maxlength="32"
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
           />
 
           <input
             type="text"
-            id="couseCode"
-            name="couseCode"
+            id="courseCode"
+            name="courseCode"
             required
-            placeholder="Couse Code"
-            minlength="8"
+            placeholder="Course Code"
+            minlength="3"
             maxlength="32"
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
           />
@@ -72,7 +73,6 @@
             name="startDate"
             required
             placeholder="Start Date"
-            minlength="8"
             maxlength="32"
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
           />
@@ -82,7 +82,17 @@
             name="endDate"
             required
             placeholder="End Date"
-            minlength="8"
+            maxlength="32"
+            class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
+          />
+          <input
+            type="number"
+            min="1"
+            max="8"
+            id="ECTS"
+            name="ECTS"
+            required
+            placeholder="ECTS"
             maxlength="32"
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
           />
@@ -117,5 +127,6 @@
     <!-- <script src="scripts/registration.js"></script>
     <script src="scripts/preventNavigation.js"></script> -->
     <script src="scripts/addCourse.js"></script>
+    <script src="scripts/dashBoard.js"></script>
   </body>
 </html>

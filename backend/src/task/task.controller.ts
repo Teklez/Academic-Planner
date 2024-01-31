@@ -7,8 +7,11 @@ import { Task } from './task.schema';
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
   @Get('course/:courseCode/task')
-  getCourseTask(@Param('courseCode') courseCode: string): Promise<any> {
-    return this.taskService.getCourseTask(courseCode);
+  getCourseTask(
+    @Param('courseCode') courseCode: string,
+    @Param('username') username: string,
+  ): Promise<any> {
+    return this.taskService.getCourseTask(courseCode, username);
   }
 
   @Get('/task')
@@ -16,7 +19,7 @@ export class TaskController {
     return this.taskService.getTask(username);
   }
 
-  @Post('course/:courseCode/create')
+  @Post('course/:courseCode/task/create')
   createTask(
     @Body() taskDto: TaskDto,
     @Param('courseCode') courseCode: string,

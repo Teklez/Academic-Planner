@@ -58,13 +58,25 @@ export class TaskService {
     return tasks;
   }
 
-  async getCourseTask(courseCode: string): Promise<any> {
-    const course = await this.courseModel.findOne({ courseCode: courseCode });
-    if (!course) {
-      throw new Error('courseNotFound');
+  async getCourseTask(courseCode: string, username: string): Promise<any> {
+    const currentUser = await this.userModel.findOne({ username: username });
+    if (!currentUser) {
+      throw new Error('userNotFound');
+    }
+    const courses = currentUser.courses;
+    const courseList = [];
+    for (const courseId of courses) {
+      const course = await this.courseModel.findOne({ _id: courseId });
+      courseList.push(course);
+    }
+    const currnentCourse = courseList.find((course) => {
+      return course.courseCode === courseCode;
+    });
+    if (!currnentCourse) {
+      return [];
     }
     const tasks = [];
-    for (let task of course.tasks) {
+    for (let task of currnentCourse.tasks) {
       tasks.push(await this.taskModel.findOne({ _id: task }));
     }
     return tasks;

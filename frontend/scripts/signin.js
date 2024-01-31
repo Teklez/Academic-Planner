@@ -72,13 +72,14 @@ document
 
       if (response.ok) {
         const data = await response.json();
-        const access_token = data.access_token;
+        const access_token = await data.access_token;
         // Save the token in cookies for future authenticated requests
         console.log(access_token);
-        document.cookie = `access_token=${access_token}; httpOnly:true;`;
         sessionStorage.setItem("currentUser", username);
+        sessionStorage.setItem("access_token", access_token);
+        console.log("The access token for this user is:", access_token);
         // dashboard.greeting(username);
-        window.location.href = "../frontend/dashboard.html";
+        window.location.replace("../frontend/dashboard.html");
       } else {
         const errorData = await response.json();
         console.log(errorData);

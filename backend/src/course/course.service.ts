@@ -38,6 +38,7 @@ export class CourseService {
     const courseCode = await this.courseModel.findOne({
       courseCode: courseDto.courseCode,
     });
+    console.log('username is: ', username);
     console.log(courseCode);
     if (courseCode) {
       throw new HttpException('coursAlreadyExist', HttpStatus.CONFLICT);
@@ -46,6 +47,7 @@ export class CourseService {
     await course.save();
     const currentUser = await this.userModel.findOne({ username: username });
     if (!currentUser) {
+      console.log('user not found');
       throw new NotFoundException('userNotFound at createCourse');
     }
     console.log(currentUser);
