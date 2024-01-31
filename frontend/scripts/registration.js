@@ -22,8 +22,9 @@ async function loginUser(username, password) {
       const data = await response.json();
       const access_token = await data.access_token;
       console.log("The access token for this user is:", access_token);
-      localStorage.setItem("access_token", access_token);
+      sessionStorage.setItem("access_token", access_token);
       sessionStorage.setItem("user", username);
+      sessionStorage.setItem("currentUser", username);
       window.location.href = "../../frontend/dashboard.html";
     } else {
       console.log("Login failed:", response.json());
@@ -52,6 +53,7 @@ form?.addEventListener("submit", (e) => {
   );
   console.log("register form submitted");
   //call register function
+  sessionStorage.setItem("currentUser", username);
   registerUser(username, email, password);
 });
 // Registeration
