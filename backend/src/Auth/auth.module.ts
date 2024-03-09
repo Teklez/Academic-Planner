@@ -8,6 +8,9 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { SessionSerialiser } from './utils/serializer';
+import { CourseSchema } from 'src/course/course.schema';
+import { NotificationSchema } from 'src/notification/notification.schema';
+import { TaskSchema } from 'src/task/task.schema';
 
 @Module({
   imports: [
@@ -21,6 +24,18 @@ import { SessionSerialiser } from './utils/serializer';
       {
         name: 'User',
         schema: UserSchema,
+      },
+      {
+        name: 'Course',
+        schema: CourseSchema,
+      },
+      {
+        name: 'Notification',
+        schema: NotificationSchema,
+      },
+      {
+        name: 'Task',
+        schema: TaskSchema,
       },
     ]),
   ],

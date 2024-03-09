@@ -9,8 +9,9 @@ import { CourseSchema } from './course.schema';
 import { Model } from 'mongoose';
 import { Course } from './course.schema';
 import { CourseDto } from './course.dto';
-import { User } from 'src/auth/schemas/user.schema';
-import { Notification } from 'src/notification/notification.schema';
+import { User } from '../Auth/schemas/user.schema';
+import { Notification } from '../notification/notification.schema';
+import { NotificationDto } from '../notification/notification.dto';
 
 @Injectable()
 export class CourseService {
@@ -22,6 +23,23 @@ export class CourseService {
     @InjectModel(Notification.name)
     private notificationModel: Model<Notification>,
   ) {}
+
+  async deleteAllCourse(username: string): Promise<any> {
+    const currentUser = await this.userModel.findOne({ username: username });
+    if (!currentUser) {
+      throw new NotFoundException('userNotFound');
+    }
+    const notification = new this.notificationModel({
+      message: `All courses have been deleted`,
+      time: new Date().toISOString(),
+    });
+    console.log('courses deleted');
+    await notification.save();
+    currentUser.notifications.push(notification._id);
+    currentUser.courses = [];
+    await currentUser.save();
+    return { message: 'allCoursesDeleted' };
+  }
 
   async getCourse(username: string): Promise<any> {
     const currentUser = await this.userModel.findOne({ username: username });
@@ -41,8 +59,10 @@ export class CourseService {
     const courseCode = await this.courseModel.findOne({
       courseCode: courseDto.courseCode,
     });
-    console.log('username is: ', username);
-    console.log(courseCode);
+    console.log('courseCode is: ', courseCode);
+    console.log('courseDto is: ', courseDto.courseCode);
+    // console.log('username is: ', username);
+    // console.log(courseCode);
     if (courseCode) {
       throw new HttpException('coursAlreadyExist', HttpStatus.CONFLICT);
     }
@@ -57,11 +77,14 @@ export class CourseService {
     console.log(course);
     currentUser.courses.push(course._id);
 
+    const notificationDto = new NotificationDto();
+    notificationDto.message = `New course ${course.courseName} has been created`;
+    notificationDto.time = new Date().toISOString();
+    const notification = new this.notificationModel(notificationDto);
+    await notification.save();
+    console.log(notification);
+    currentUser.notifications.push(notification._id);
     await currentUser.save();
-    this.notificationModel.create({
-      message: `New course ${course.courseCode} has been created`,
-      time: new Date().toISOString(),
-    });
     return course;
   }
 }

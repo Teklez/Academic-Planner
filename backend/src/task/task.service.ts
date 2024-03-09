@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { Task } from './task.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Course } from 'src/course/course.schema';
-import { User } from 'src/auth/schemas/user.schema';
+import { Course } from '../course/course.schema';
+import { User } from '../Auth/schemas/user.schema';
 import { TaskDto } from './task.dto';
-import { Notification } from 'src/notification/notification.schema';
+import { Notification } from '../notification/notification.schema';
 
 @Injectable()
 export class TaskService {
@@ -42,13 +42,14 @@ export class TaskService {
     await task.save();
     course.tasks.push(task._id);
     currentUser.tasks.push(task._id);
-    await currentUser.save();
     await course.save();
-    this.notificationModel.create({
+    const notification = new this.notificationModel({
       message: `New task ${task.title} has been created`,
       time: new Date().toISOString(),
     });
-
+    await notification.save();
+    currentUser.notifications.push(notification._id);
+    await currentUser.save();
     return task;
   }
 

@@ -1,3 +1,84 @@
+// ============================================ validaat form
+function validateTaskForm() {
+  var title = document.getElementById("title").value.trim();
+  var description = document.getElementById("description").value.trim();
+  var dueDate = document.getElementById("dueDate").value.trim();
+  // var ects = document.getElementById("ECTS").value.trim();
+  var currentDate = new Date();
+  var selectedDate = new Date(dueDate);
+
+  resetRegistrationErrorMessages();
+
+  if (!title) {
+    displayRegistrationErrorMessage("Title is required!");
+    return false;
+  }
+
+  if (/\d/.test(title)) {
+    displayRegistrationErrorMessage("Invalid Title!");
+    return false;
+  }
+
+  if (title.length < 3) {
+    displayRegistrationErrorMessage(
+      "Title must be at least 3 characters long!"
+    );
+    return false;
+  }
+
+  if (!description) {
+    displayRegistrationErrorMessage("Description is required!");
+    return false;
+  }
+
+  if (description.length < 15) {
+    displayRegistrationErrorMessage(
+      "Description must be at least 15 characters long!"
+    );
+    return false;
+  }
+
+  // if (!ects) {
+  //   displayRegistrationErrorMessage("ECTS is required!");
+  //   return false;
+  // }
+  // if (ects < 1 || ects > 15) {
+  //   displayRegistrationErrorMessage("ECTS must be at least 1 and at most 15!");
+  //   return false;
+  // }
+  if (!dueDate) {
+    displayRegistrationErrorMessage("Due date is required!");
+    return false;
+  }
+
+  if (selectedDate <= currentDate) {
+    displayRegistrationErrorMessage(
+      "Invalid due date. Please select a date in the future!"
+    );
+    return;
+  }
+  return true;
+}
+function resetRegistrationErrorMessages() {
+  var errorMessagesElement = document.getElementById("errorMessages");
+  errorMessagesElement.textContent = "";
+  errorMessagesElement.style.color = "";
+}
+
+function displayRegistrationErrorMessage(message) {
+  var errorMessagesElement = document.getElementById("errorMessages");
+  errorMessagesElement.textContent = message;
+  errorMessagesElement.style.color = "red";
+}
+
+function displayRegistrationSuccessMessage(message) {
+  var errorMessagesElement = document.getElementById("errorMessages");
+  errorMessagesElement.textContent = message;
+  errorMessagesElement.style.color = "green";
+}
+
+// ====================================================
+
 var urlParams = new URLSearchParams(window.location.search);
 var courseName = urlParams.get("courseName");
 var instructor = urlParams.get("instructor");
@@ -5,9 +86,12 @@ var courseCode = urlParams.get("courseCode");
 
 document.addEventListener("submit", (e) => {
   e.preventDefault();
-  // if (validateForm()) {
-  addTask();
-  changeToTask();
+  // if (validateForm())
+
+  if (validateTaskForm()) {
+    addTask();
+    changeToTask();
+  }
   // } else {
   //   console.log("Task is not sent to the server.");
   // }
@@ -154,6 +238,7 @@ async function getCourseTask() {
         const taskName = task.title;
         const taskDescription = task.description;
         const taskDueDate = task.dueDate;
+        const priority = task.priority;
         console.log("taskName", taskName);
         console.log("taskDescription", taskDescription);
         console.log("taskDueDate", taskDueDate);
@@ -161,13 +246,18 @@ async function getCourseTask() {
           taskName,
           taskDescription,
           taskDueDate,
+          task.priority,
           courseName,
           instructor,
           courseCode
         );
-        // let taskCount = tasks.length;
-        // const taskCountElement = document.getElementById("task-count");
-        // taskCountElement.innerText = `${taskCount}`;
+        let taskCount = tasks.length;
+        const taskCountElement = document.getElementById("task-count");
+        if (taskCount > 0) {
+          taskCountElement.innerText = `${taskCount}`;
+        } else {
+          taskCountElement.innerText = `no`;
+        }
       }
     } else {
       console.log("HTTP status: ", response);
@@ -183,7 +273,7 @@ icon.innerHTML = `${currentUser}`;
 
 // ================================================GET COURSE TASK==========================================================
 
-function addCourseTask(taskName, taskDescription, taskDueDate) {
+function addCourseTask(taskName, taskDescription, taskDueDate, priority) {
   var taskItemContainer = document.createElement("div");
   taskItemContainer.className =
     "task-item bg-[#21242C] rounded-2xl p-3 w-2/5 flex m-2";
@@ -192,14 +282,22 @@ function addCourseTask(taskName, taskDescription, taskDueDate) {
   statusCircle.className = "h-full w-fit";
   var statusCircleIcon = document.createElement("i");
   statusCircleIcon.className = "fa-solid fa-circle";
-  statusCircleIcon.style.color = "#1EFE80";
+  if (priority === "LOW") {
+    statusCircleIcon.style.color = "#1EFE80";
+  }
+  if (priority === "MEDIUM") {
+    statusCircleIcon.style.color = "#FFA500";
+  }
+  if (priority === "HIGH") {
+    statusCircleIcon.style.color = "#FF0000";
+  }
   statusCircle.appendChild(statusCircleIcon);
 
   var taskContentContainer = document.createElement("div");
   taskContentContainer.className = "h-full px-3";
 
   var taskTitle = document.createElement("h4");
-  taskTitle.className = "flex justify-between";
+  taskTitle.className = "flex justify-between w-full";
   var titleSpan = document.createElement("span");
   titleSpan.className = "text-2xl";
   titleSpan.textContent = `${taskName}`;
@@ -208,12 +306,14 @@ function addCourseTask(taskName, taskDescription, taskDueDate) {
   var ellipsisIcon = document.createElement("i");
   ellipsisIcon.className = "fa-solid fa-ellipsis-vertical";
   ellipsisLink.appendChild(ellipsisIcon);
+  ellipsisLink.style.marginLeft = "10px";
   taskTitle.appendChild(titleSpan);
   taskTitle.appendChild(ellipsisLink);
 
   var timeElement = document.createElement("h5");
   timeElement.className = "text-[#1EFE80]";
-  timeElement.textContent = `${taskDueDate}`;
+  taskDueDate = formateDate(taskDueDate);
+  timeElement.textContent = `due: ${taskDueDate}`;
 
   var descriptionParagraph = document.createElement("p");
   descriptionParagraph.className = "text-sm";
@@ -258,7 +358,7 @@ function addCourseTitle(name, instructor, code) {
 
   var paragraph2 = document.createElement("p");
   paragraph2.innerHTML =
-    'You have <span class="text-yellow-300 text-4xl mx-2" task-count></span> pending tasks for the day';
+    'You have <span class="text-yellow-300 text-4xl mx-2" id="task-count">no</span> pending tasks for this course';
 
   greetingContainer.appendChild(heading);
   greetingContainer.appendChild(paragraph1);
@@ -269,3 +369,36 @@ function addCourseTitle(name, instructor, code) {
   taskHeadingElement.insertAdjacentElement("afterend", greetingContainer);
 }
 addCourseTitle(courseName, instructor, courseCode);
+
+// ================================================DATE==========================================================
+function formateDate(date) {
+  var originalDateString = date;
+  var originalDate = new Date(originalDateString);
+  var year = originalDate.getFullYear();
+  var month = (originalDate.getMonth() + 1).toString().padStart(2, "0"); // Add padding if needed
+  var day = originalDate.getDate().toString().padStart(2, "0"); // Add padding if needed
+  var hours = originalDate.getHours() % 12 || 12; // Convert to twelve-hour format
+  var minutes = originalDate.getMinutes().toString().padStart(2, "0"); // Add padding if needed
+  var seconds = originalDate.getSeconds().toString().padStart(2, "0"); // Add padding if needed
+  var amPm = originalDate.getHours() < 12 ? "AM" : "PM"; // Determine AM or PM
+
+  // Format the date and time as a string in the desired format
+  var formattedDate =
+    month +
+    "/" +
+    day +
+    "/" +
+    year +
+    ", " +
+    hours +
+    ":" +
+    minutes +
+    ":" +
+    seconds +
+    " " +
+    amPm;
+
+  // Output the
+
+  return formattedDate;
+}

@@ -13,11 +13,7 @@ export class SignUpDto {
 
   @IsNotEmpty()
   @IsEmail()
-  readonly email: {
-    type: string;
-    unique: true;
-    requred: true;
-  };
+  readonly email: string;
 
   @IsNotEmpty()
   @IsString()

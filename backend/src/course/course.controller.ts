@@ -9,11 +9,12 @@ import {
   Req,
   HttpException,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CourseDto } from './course.dto';
 import { Course } from './course.schema';
-import { Public } from 'src/auth/decorator/public.decorator';
+import { Public } from '../Auth/decorator/public.decorator';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
@@ -58,5 +59,10 @@ export class CourseController {
     // }
     // console.log('Access Token:', access_token);
     return await this.courseService.getCourse(username);
+  }
+  @HttpCode(HttpStatus.OK)
+  @Delete('/delete')
+  async deleteAllCourse(@Param('username') username: string): Promise<any> {
+    return await this.courseService.deleteAllCourse(username);
   }
 }

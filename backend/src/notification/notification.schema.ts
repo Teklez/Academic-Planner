@@ -1,11 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
-// This is the schema definition for the User model.
 @Schema({
   timestamps: true,
 })
-export class Notification extends mongoose.Document {
+export class Notification {
   @Prop({ required: true })
   message: string;
 

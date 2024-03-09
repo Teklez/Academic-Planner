@@ -1,3 +1,66 @@
+// ================================================== validate login form
+function validateLoginForm() {
+  var username = document.getElementById("username").value.trim();
+  var password = document.getElementById("password").value.trim();
+
+  resetRegistrationErrorMessages();
+
+  if (!username) {
+    displayRegistrationErrorMessage("User Name is required!");
+
+    return false;
+  }
+
+  if (/\d/.test(username)) {
+    displayRegistrationErrorMessage("Invalid User Name!");
+    return false;
+  }
+
+  if (username.length < 3) {
+    displayRegistrationErrorMessage(
+      "User Name must be at least 3 characters long."
+    );
+    return false;
+  }
+
+  if (!password) {
+    displayRegistrationErrorMessage("Password is required!");
+    return false;
+  }
+
+  if (password.length < 8) {
+    displayRegistrationErrorMessage(
+      "Password must be at least 8 characters long!"
+    );
+    return false;
+  }
+
+  if (!/\d/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+    displayRegistrationErrorMessage("Invalid Password!");
+    return false;
+  }
+  function resetRegistrationErrorMessages() {
+    var errorMessagesElement = document.getElementById("errorMessages");
+    errorMessagesElement.textContent = "";
+    errorMessagesElement.style.color = "";
+  }
+
+  function displayRegistrationErrorMessage(message) {
+    var errorMessagesElement = document.getElementById("errorMessages");
+    errorMessagesElement.textContent = message;
+    errorMessagesElement.style.color = "red";
+  }
+
+  function displayRegistrationSuccessMessage(message) {
+    var errorMessagesElement = document.getElementById("errorMessages");
+    errorMessagesElement.textContent = message;
+    errorMessagesElement.style.color = "green";
+  }
+  return true;
+}
+
+// =========================
+
 const form = document.querySelector("form");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
@@ -50,11 +113,11 @@ const googleBtn = document.querySelector(".google-btn");
 //       setSuccessFor(password);
 //     }
 //   }
-
 document
   .getElementById("form")
   .addEventListener("submit", async function (event) {
     event.preventDefault();
+    validateLoginForm();
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
 
@@ -99,7 +162,7 @@ document
 googleBtn.addEventListener("click", () => {
   console.log("clicked!");
   window.location.href = "http://localhost:5500/auth/google";
-  //   window.location.replace("../../frontend/dashboard.html");
+  window.location.replace("../frontend/dashboard.html");
 });
 
 export { username };

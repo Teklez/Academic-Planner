@@ -50,6 +50,15 @@
               class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"
             >
               <i
+                class="fa-solid fa-list text-2xl mr-3 w-8"
+                style="color: #1efe80"
+              ></i
+              ><a href="gradebookPage.html">Gradebook</a>
+            </li>
+            <li
+              class="p-3 bg-[#272B34] my-2 hover:text-[#1EFE80] hover:translate-x-4 transition-all"
+            >
+              <i
                 class="fa-solid fa-bell text-2xl mr-3 w-8"
                 style="color: #1efe80"
               ></i
@@ -83,7 +92,9 @@
           <p>Let's get started with your day.</p>
           <p>
             You have
-            <span class="text-yellow-300 text-4xl mx-2" id="task-count"></span>
+            <span class="text-yellow-300 text-4xl mx-2" id="task-count"
+              >no</span
+            >
             pending tasks for the day
           </p>
         </div>
@@ -98,7 +109,7 @@
           <h1 class="text-4xl">Tasks</h1>
           <h3>
             Today -
-            <span class="text-[#1EFE80]" id="current-date">Friday, 12 May</span>
+            <span class="text-[#1EFE80]" id="current-date"></span>
           </h3>
           <div class="flex flex-wrap my-2" id="list-of-tasks"></div>
         </section>
@@ -107,5 +118,6 @@
     <!-- <script src="scripts/signin.js" type="module"></script> -->
     <script src="scripts/dashBoard.js"></script>
     <!-- <script src="scripts/dom1.js"></script> -->
+    <script src="scripts/dateFormatting.js"></script>
   </body>
 </html>

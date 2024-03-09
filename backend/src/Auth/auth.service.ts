@@ -12,16 +12,53 @@ import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from './dto/signUp.dto';
 import { LoginDto } from './dto/login.dto';
 import { error } from 'console';
+import { Course } from '../course/course.schema';
+import { Notification } from '../notification/notification.schema';
+import { NotificationDto } from '../notification/notification.dto';
+import { Task } from '../task/task.schema';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<User>,
+    @InjectModel(Course.name)
+    private courseModel: Model<Course>,
+    @InjectModel(Notification.name)
+    private notificationModel: Model<Notification>,
+    @InjectModel(Task.name)
+    private taskModel: Model<Task>,
     private jwtService: JwtService,
   ) {}
 
   // VALIDATE USER
+
+  async deleteAccount(username: string): Promise<any> {
+    const currentUser = await this.userModel.findOne({
+      username: username,
+    });
+    if (!currentUser) {
+      throw new HttpException('userNotFound', HttpStatus.NOT_FOUND);
+    }
+
+    const courses = currentUser.courses;
+    const notifications = currentUser.notifications;
+    const tasks = currentUser.tasks;
+
+    for (const courseId of courses) {
+      await this.courseModel.deleteOne({ _id: courseId });
+    }
+
+    for (const notificationId of notifications) {
+      await this.notificationModel.deleteOne({ _id: notificationId });
+    }
+
+    for (const taskId of tasks) {
+      await this.taskModel.deleteOne({ _id: taskId });
+    }
+    await this.userModel.deleteOne({ username: username });
+    return { message: 'userDeleted' };
+  }
 
   async validateUser(email: string, displayname: string): Promise<any> {
     const user = await this.userModel.findOne({ email: email });

@@ -10,6 +10,8 @@ import {
   UseGuards,
   Redirect,
   Res,
+  Param,
+  Delete,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -58,6 +60,11 @@ export class AuthController {
   @Get('/google/callback')
   googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
     // return Redirect('../../../frontend/dashboard.html');
+  }
+
+  @Delete(':username/delete')
+  async deleteAccount(@Param('username') username: string) {
+    return this.authService.deleteAccount(username);
   }
 
   @Get('profile')

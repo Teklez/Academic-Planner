@@ -38,7 +38,6 @@
             type="text"
             id="courseName"
             name="coursename"
-            required
             placeholder="Course Name"
             minlength="8"
             autofocus
@@ -49,7 +48,6 @@
             type="text"
             id="instructor"
             name="instructor"
-            required
             placeholder="instructor"
             minlength="4"
             maxlength="32"
@@ -60,7 +58,6 @@
             type="text"
             id="courseCode"
             name="courseCode"
-            required
             placeholder="Course Code"
             minlength="3"
             maxlength="32"
@@ -68,19 +65,17 @@
           />
 
           <input
-            type="text"
+            type="date"
             id="startDate"
             name="startDate"
-            required
             placeholder="Start Date"
             maxlength="32"
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
           />
           <input
-            type="text"
+            type="date"
             id="endDate"
             name="endDate"
-            required
             placeholder="End Date"
             maxlength="32"
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
@@ -91,12 +86,11 @@
             max="8"
             id="ECTS"
             name="ECTS"
-            required
             placeholder="ECTS"
             maxlength="32"
             class="w-full px-2 py-2 border rounded focus:outline-slate-500 focus:shadow-outline transition duration-300 text-black"
           />
-
+          <div id="errorMessages" class="error-message"></div>
           <input
             value="Add Course"
             name="Add Course"

@@ -1,9 +1,9 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { UserService } from './user/user.service';
-import { UserController } from './user/user.controller';
+// import { UserModule } from './user/user.module';
+// import { UserService } from './user/user.service';
+// import { UserController } from './user/user.controller';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './auth/schemas/user.schema';
@@ -24,6 +24,7 @@ import { AuthMiddleware } from './Auth/auth.middleware';
 import { NotificationController } from './notification/notification.controller';
 import { NotificationService } from './notification/notification.service';
 import { NotificationModule } from './notification/notification.module';
+import { NotificationSchema } from './notification/notification.schema';
 
 @Module({
   imports: [
@@ -37,9 +38,8 @@ import { NotificationModule } from './notification/notification.module';
       { name: 'User', schema: UserSchema },
       { name: 'Course', schema: CourseSchema },
       { name: 'Task', schema: TaskSchema },
-      { name: 'Notification', schema: TaskSchema },
+      { name: 'Notification', schema: NotificationSchema },
     ]),
-    UserModule,
     AuthModule,
     CourseModule,
     TaskModule,
@@ -47,7 +47,6 @@ import { NotificationModule } from './notification/notification.module';
   ],
   controllers: [
     AppController,
-    UserController,
     AuthController,
     CourseController,
     TaskController,
@@ -55,7 +54,6 @@ import { NotificationModule } from './notification/notification.module';
   ],
   providers: [
     AppService,
-    UserService,
     AuthService,
     JwtService,
     CourseService,
